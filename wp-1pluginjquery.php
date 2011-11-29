@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: 1 Plugin jQuery Photo Gallery Slideshow
+Plugin Name: 1 Plugin video player, Photo Gallery Slideshow jQuery and audio / music / podcast
 Plugin URI: http://1pluginjquery.com/
-Description: Photo Gallery with slideshow function, many skins and powerfull admin to manage your image gallery without any program skills.
+Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: 1pluginjquery
-Version: 1.00
+Version: 1.01
 */
 
 
 function _1pluginjquery_plugin_ver()
 {
-	return 'wp1.00';
+	return 'wp1.01';
 }
 
 function _1pluginjquery_url()
@@ -214,7 +214,7 @@ function _1pluginjquery_dashboard()
 function _1pluginjquery_dashboard_content()
 {
 
-	echo "<iframe src='http://app.1pluginjquery.com/runtime/wordpress-dashboard-content.aspx?ver="._1pluginjquery_plugin_ver()."&src=".urlencode(_1pluginjquery_selfURL())."' width='100%' height='370px' scrolling='no'></iframe>";
+	echo "<iframe src='http://app.1pluginjquery.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&continue=http%3a%2f%2fapp.1pluginjquery.com%2fmanage%2fwordpress-dashboard.aspx&ver="._1pluginjquery_plugin_ver()."&src=".urlencode(_1pluginjquery_selfURL())."' width='100%' height='370px' scrolling='no'></iframe>";
 
 }
 
@@ -224,27 +224,23 @@ function _1pluginjquery_dashboard_content()
 function _1pluginjquery_mt_add_pages() {
 
 	// Add a new submenu under Options:
+	// http://codex.wordpress.org/Roles_and_Capabilities
 	
-	add_options_page('1pluginjquery Options', '1pluginjquery Options', 8, '1pluginjqueryoptions', '_1pluginjquery_mt_options_page');
+	add_options_page('1pluginjquery Options', '1pluginjquery Options', 'install_plugins', '1pluginjqueryoptions', '_1pluginjquery_mt_options_page');
 
 
 	if(function_exists('add_menu_page'))
 	{
-		// Add a new top-level menu (ill-advised):
-		add_menu_page('1pluginjquery', '1pluginjquery', 8, __FILE__, '_1pluginjquery_mt_toplevel_page');
+		add_menu_page('1pluginjquery', '1pluginjquery', 'edit_posts', __FILE__, '_1pluginjquery_mt_toplevel_page');
 
-		// kill the first menu item that is usually the the identical to the menu itself
-		add_submenu_page(__FILE__, '', '', 8, __FILE__);
+		// kill the first menu item that is usually the identical to the menu itself
+		add_submenu_page(__FILE__, '', '', 'edit_posts', __FILE__);
 
-		add_submenu_page(__FILE__, 'Manage Galleries', 'Manage Galleries', 8, 'sub-page', '_1pluginjquery_mt_sublevel_monitor');
-
-//		add_submenu_page(__FILE__, 'Media Library', 'Media Library', 8, 'sub-page1', '_1pluginjquery_mt_sublevel_library');
-
-//		add_submenu_page(__FILE__, 'Create Gallery', 'Create Gallery', 8, 'sub-page2', '_1pluginjquery_mt_sublevel_create');
-
-//		add_submenu_page(__FILE__, 'My Account', 'My Account', 8, 'sub-page3', '_1pluginjquery_mt_sublevel_myaccount');
-
-//		add_submenu_page(__FILE__, 'Support Forum', 'Support Forum', 8, 'sub-page4', '_1pluginjquery_mt_sublevel_forum');
+		add_submenu_page(__FILE__, 'Manage Galleries', 'Manage Galleries', 'edit_posts', 'sub-page', '_1pluginjquery_mt_sublevel_monitor');
+//		add_submenu_page(__FILE__, 'Media Library', 'Media Library', 'edit_posts', 'sub-page1', '_1pluginjquery_mt_sublevel_library');
+//		add_submenu_page(__FILE__, 'Create Gallery', 'Create Gallery', 'edit_posts', 'sub-page2', '_1pluginjquery_mt_sublevel_create');
+//		add_submenu_page(__FILE__, 'My Account', 'My Account', 'edit_posts', 'sub-page3', '_1pluginjquery_mt_sublevel_myaccount');
+//		add_submenu_page(__FILE__, 'Support Forum', 'Support Forum', 'edit_posts', 'sub-page4', '_1pluginjquery_mt_sublevel_forum');
 	}
 }
 
