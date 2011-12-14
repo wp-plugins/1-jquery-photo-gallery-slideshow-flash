@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: 1 Plugin video player, Photo Gallery Slideshow jQuery and audio / music / podcast
+Plugin Name: 1 Plugin video player, Photo Gallery Slideshow jQuery and audio / music / podcast - HTML5
 Plugin URI: http://1pluginjquery.com/
 Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: 1pluginjquery
-Version: 1.01
+Version: 1.02
 */
 
 
 function _1pluginjquery_plugin_ver()
 {
-	return 'wp1.01';
+	return 'wp1.02';
 }
 
 function _1pluginjquery_url()
