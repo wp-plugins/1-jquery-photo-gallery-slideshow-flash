@@ -4,13 +4,13 @@ Plugin Name: 1 Plugin video player, Photo Gallery Slideshow jQuery and audio / m
 Plugin URI: http://1pluginjquery.com/
 Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: 1pluginjquery
-Version: 1.02
+Version: 1.03
 */
 
 
 function _1pluginjquery_plugin_ver()
 {
-	return 'wp1.02';
+	return 'wp1.03';
 }
 
 function _1pluginjquery_url()
@@ -228,19 +228,20 @@ function _1pluginjquery_mt_add_pages() {
 	
 	add_options_page('1pluginjquery Options', '1pluginjquery Options', 'install_plugins', '1pluginjqueryoptions', '_1pluginjquery_mt_options_page');
 
+	$pluginjquery_permission_level = get_site_option('1pluginjquery_permission_level');
 
 	if(function_exists('add_menu_page'))
 	{
-		add_menu_page('1pluginjquery', '1pluginjquery', 'edit_posts', __FILE__, '_1pluginjquery_mt_toplevel_page');
+		add_menu_page('1pluginjquery', '1pluginjquery', $pluginjquery_permission_level, __FILE__, '_1pluginjquery_mt_toplevel_page');
 
 		// kill the first menu item that is usually the identical to the menu itself
-		add_submenu_page(__FILE__, '', '', 'edit_posts', __FILE__);
+		add_submenu_page(__FILE__, '', '', $pluginjquery_permission_level, __FILE__);
 
-		add_submenu_page(__FILE__, 'Manage Galleries', 'Manage Galleries', 'edit_posts', 'sub-page', '_1pluginjquery_mt_sublevel_monitor');
-//		add_submenu_page(__FILE__, 'Media Library', 'Media Library', 'edit_posts', 'sub-page1', '_1pluginjquery_mt_sublevel_library');
-//		add_submenu_page(__FILE__, 'Create Gallery', 'Create Gallery', 'edit_posts', 'sub-page2', '_1pluginjquery_mt_sublevel_create');
-//		add_submenu_page(__FILE__, 'My Account', 'My Account', 'edit_posts', 'sub-page3', '_1pluginjquery_mt_sublevel_myaccount');
-//		add_submenu_page(__FILE__, 'Support Forum', 'Support Forum', 'edit_posts', 'sub-page4', '_1pluginjquery_mt_sublevel_forum');
+		add_submenu_page(__FILE__, 'Manage Galleries', 'Manage Galleries', $pluginjquery_permission_level, 'sub-page', '_1pluginjquery_mt_sublevel_monitor');
+//		add_submenu_page(__FILE__, 'Media Library', 'Media Library', $pluginjquery_permission_level, 'sub-page1', '_1pluginjquery_mt_sublevel_library');
+//		add_submenu_page(__FILE__, 'Create Gallery', 'Create Gallery', $pluginjquery_permission_level, 'sub-page2', '_1pluginjquery_mt_sublevel_create');
+//		add_submenu_page(__FILE__, 'My Account', 'My Account', $pluginjquery_permission_level, 'sub-page3', '_1pluginjquery_mt_sublevel_myaccount');
+//		add_submenu_page(__FILE__, 'Support Forum', 'Support Forum', $pluginjquery_permission_level, 'sub-page4', '_1pluginjquery_mt_sublevel_forum');
 	}
 }
 
@@ -268,6 +269,7 @@ function _1pluginjquery_mt_options_page() {
 	}
 
 	$pluginjquery_userid = get_site_option('1pluginjquery_userid');
+	$pluginjquery_permission_level = get_site_option('1pluginjquery_permission_level');
 	$pluginjquery_excerpt = get_site_option('1pluginjquery_excerpt');
 
 	if ( isset($_POST['submit']) )
@@ -278,6 +280,12 @@ function _1pluginjquery_mt_options_page() {
 			{
 				$pluginjquery_userid = $_POST['1pluginjquery_userid'];
 				update_site_option('1pluginjquery_userid', $pluginjquery_userid);
+			}
+			
+			if (isset($_POST['1pluginjquery_permission_level']))
+			{
+				$pluginjquery_permission_level = $_POST['1pluginjquery_permission_level'];
+				update_site_option('1pluginjquery_permission_level', $pluginjquery_permission_level);
 			}
 		}
 
@@ -314,29 +322,7 @@ function _1pluginjquery_mt_options_page() {
 							<div class="inside" style="width:600px;">
 								<table class="form-table">
 
-									<tr style="width:100%;">
-										<th valign="top" scrope="row">
-											<label for="">
-												Excerpt Handling (<a target="_blank" href="http://1pluginjquery.com/">what?</a>):
-											</label>
-										</th>
-										<td valign="top">
 
-											<input type="radio" <?php echo $disp_excerpt1; ?> id="embedCustomization0" name="embedRel" value="nothing"/>
-											<label for="embedCustomization0">Do nothing (default Wordpress behavior)</label>
-											<br/>
-											<input type="radio" <?php echo $disp_excerpt2; ?> id="embedCustomization1" name="embedRel" value="clean"/>
-											<label for="embedCustomization1">Clean excerpt (do not show gallery)</label>
-											<br/>
-											<input type="radio" <?php echo $disp_excerpt4; ?> id="embedCustomization3" name="embedRel" value="remove"/>
-											<label for="embedCustomization3">Remove gallery (do not show gallery in all non post pages)</label>
-											<br/>
-											<input type="radio" <?php echo $disp_excerpt3; ?> id="embedCustomization2" name="embedRel" value="full"/>
-											<label for="embedCustomization2">Full excerpt (show gallery)</label>
-											<br/>
-
-										</td>
-									</tr>
 
 
 									<?php
@@ -361,12 +347,55 @@ if (_1pluginjquery_isAdmin())
 
 
 
+									<tr style="width:100%;">
+										<th valign="top" scrope="row">
+											<label for="1pluginjquery_permission_level">
+												Menu Permission (<a target="_blank" href="http://codex.wordpress.org/Roles_and_Capabilities">what?</a>):
+											</label>
+										</th>
+										<td valign="top">
+											<input id="1pluginjquery_permission_level" name="1pluginjquery_permission_level" type="text" size="20" value="<?php echo $pluginjquery_permission_level; ?>"/>
+										</td>
+									</tr>
+
+
 
 									<?php
 }
 
 ?>
 
+
+
+
+
+									<tr style="width:100%;">
+										<th valign="top" scrope="row">
+											<label for="">
+												Excerpt Handling (<a target="_blank" href="http://1pluginjquery.com/">what?</a>):
+											</label>
+										</th>
+										<td valign="top">
+
+											<input type="radio" <?php echo $disp_excerpt1; ?> id="embedCustomization0" name="embedRel" value="nothing"/>
+											<label for="embedCustomization0">Do nothing (default Wordpress behavior)</label>
+											<br/>
+											<input type="radio" <?php echo $disp_excerpt2; ?> id="embedCustomization1" name="embedRel" value="clean"/>
+											<label for="embedCustomization1">Clean excerpt (do not show gallery)</label>
+											<br/>
+											<input type="radio" <?php echo $disp_excerpt4; ?> id="embedCustomization3" name="embedRel" value="remove"/>
+											<label for="embedCustomization3">Remove gallery (do not show gallery in all non post pages)</label>
+											<br/>
+											<input type="radio" <?php echo $disp_excerpt3; ?> id="embedCustomization2" name="embedRel" value="full"/>
+											<label for="embedCustomization2">Full excerpt (show gallery)</label>
+											<br/>
+
+										</td>
+									</tr>
+
+									
+									
+									
 
 									<tr style="width:100%;">
 										<th valign="top" scrope="row" colspan=2>
@@ -554,6 +583,11 @@ if (get_site_option('1pluginjquery_userid') == "")
 {
 	$uni = uniqid('');
 	update_site_option('1pluginjquery_userid', $uni);
+}
+
+if (get_site_option('1pluginjquery_permission_level') == "")
+{
+	update_site_option('1pluginjquery_permission_level', 'edit_posts');
 }
 
 

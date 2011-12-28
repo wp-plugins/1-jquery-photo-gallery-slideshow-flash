@@ -66,8 +66,22 @@ No, this plugin is completely integrated with Wordpress dashboard
 
 == Screenshots ==
 
+1. Portfolio – Photographer
+2. Images from an event with lightbox
+3. Smooth Gallery - Wedding album
+4. Image grid with lightbox - Tutorial
+5. Web design agency or freelancer
+6. Image grid for Blog post
+7. Portfolio with lightbox – Artist 
+8. Image gallery - great for Travel album
 
 == Changelog ==
+
+= 1.03 =
+
+* Permission menu control
+* Bug fix
+* Add screenshots
 
 = 1.02 =
 
