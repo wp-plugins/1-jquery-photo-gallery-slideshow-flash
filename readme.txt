@@ -12,12 +12,12 @@ Are you looking for a professional plugin to manage and display photos, videos a
 
 
 
-    *  ** [Flowplayer Video Player](http://www.zooeffect.com/skins/flowplayer-video-player/flowplayer) ** fully customizable (CDN included)
-    *  ** [SmoothGallery Image Slideshow](http://www.zooeffect.com/skins/smoothgallery-image-slideshow/smoothgallery) ** smooth...
-    *  ** [Galleriffic jQuery Photos and Video Gallery](http://www.zooeffect.com/skins/galleriffic-jquery-photos-and-video-gallery/galleriffic) ** beautiful
-    *  ** [Music and Audio Players jPlayer HTML5](http://www.zooeffect.com/skins/jplayer-html5-music-player/jplayer) ** great quality
-    *  ** [jQuery Image and Video Gallery](http://www.zooeffect.com/skins/jquery-image-and-video-gallery/imagelist) ** many templates
-    *  ** iPhone iPad Android ** compatible
+** [Flowplayer Video Player](http://www.zooeffect.com/skins/flowplayer-video-player/flowplayer) ** fully customizable (CDN included)
+** [SmoothGallery Image Slideshow](http://www.zooeffect.com/skins/smoothgallery-image-slideshow/smoothgallery) ** smooth...
+** [Galleriffic jQuery Photos and Video Gallery](http://www.zooeffect.com/skins/galleriffic-jquery-photos-and-video-gallery/galleriffic) ** beautiful
+** [Music and Audio Players jPlayer HTML5](http://www.zooeffect.com/skins/jplayer-html5-music-player/jplayer) ** great quality
+** [jQuery Image and Video Gallery](http://www.zooeffect.com/skins/jquery-image-and-video-gallery/imagelist) ** many templates
+** iPhone iPad Android ** compatible
 
 
 
