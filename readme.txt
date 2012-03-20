@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: ZooEffect
-Tags: ZooEffect, 1plugin, jquery, HTML5, buddypress, photos, flash, flv, slideshow, images, amazon, gallery, media, cooliris, admin, post, WPtouch, photo-albums, pictures, plugin, widget, photo, picture, s3, music, playlists, playlist, sidebar, ajax, video, vidavee, iphone, cms, ipod, smooth gallery, nextgen, javascript, embed, menus, analytics, media library, itunes, mu, podpress, lightbox, podpress, podcast, flowplayer, jw player
+Tags: ZooEffect, 1plugin, jquery, HTML5, buddypress, photos, flash, flv, slideshow, images, amazon, gallery, media, cooliris, admin, posts, WPtouch, photo-albums, pictures, plugin, widget, photo, picture, s3, music, playlists, playlist, sidebar, ajax, video, vidavee, iphone, cms, ipod, smooth gallery, nextgen, javascript, embed, menus, analytics, media library, itunes, mu, podpress, lightbox, podpress, podcast, flowplayer, jw player, comments, twitter, page, google, links, image
 Requires at least: 2.0.2
 Tested up to: 3.3.1
 
@@ -11,16 +11,16 @@ Photo Gallery with slideshow function, video players, music and podcast, many te
 Are you looking for a professional plugin to manage and display photos, videos and audio in your site ? Try ZooEffect - Free [Visit our showcase page >>](http://www.zooeffect.com/) :
 
 
+= Templates and Skins =
+* [Flowplayer Video Player](http://www.zooeffect.com/skins/flowplayer-video-player/flowplayer) ** fully customizable (CDN included)
+* [SmoothGallery Image Slideshow](http://www.zooeffect.com/skins/smoothgallery-image-slideshow/smoothgallery) ** smooth...
+* [Galleriffic jQuery Photos and Video Gallery](http://www.zooeffect.com/skins/galleriffic-jquery-photos-and-video-gallery/galleriffic) ** beautiful
+* [Music and Audio Players jPlayer HTML5](http://www.zooeffect.com/skins/jplayer-html5-music-player/jplayer) ** great quality
+* [jQuery Image and Video Gallery](http://www.zooeffect.com/skins/jquery-image-and-video-gallery/imagelist) ** many templates
+* iPhone iPad Android ** compatible
 
-** [Flowplayer Video Player](http://www.zooeffect.com/skins/flowplayer-video-player/flowplayer) ** fully customizable (CDN included)
-** [SmoothGallery Image Slideshow](http://www.zooeffect.com/skins/smoothgallery-image-slideshow/smoothgallery) ** smooth...
-** [Galleriffic jQuery Photos and Video Gallery](http://www.zooeffect.com/skins/galleriffic-jquery-photos-and-video-gallery/galleriffic) ** beautiful
-** [Music and Audio Players jPlayer HTML5](http://www.zooeffect.com/skins/jplayer-html5-music-player/jplayer) ** great quality
-** [jQuery Image and Video Gallery](http://www.zooeffect.com/skins/jquery-image-and-video-gallery/imagelist) ** many templates
-** iPhone iPad Android ** compatible
 
-
-
+= Other features =
 *  Many templates and players to choose from
 *  Manage your galleries using a cool interface
 *  Inline editing to customize your gallery directly from your site

@@ -4,23 +4,18 @@ Plugin Name: ZooEffect Plugin for Video player, Photo Gallery Slideshow jQuery a
 Plugin URI: http://www.zooeffect.com/
 Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: ZooEffect
-Version: 1.05
+Version: 1.06
 */
 
 
 function _zooeffect_plugin_ver()
 {
-	return 'wp1.05';
-}
-
-function _zooeffect_url()
-{
-	return 'http://www.zooeffect.com';
+	return 'wp1.06';
 }
 
 if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=zooeffect') && !strpos($_SERVER['REQUEST_URI'], '&wrt='))
 {
-	header('Location: '._zooeffect_url().'/service.aspx?id='.get_site_option('1pluginjquery_userid').'&type=galleries&ver='._zooeffect_plugin_ver().'&rdt='.urlencode(_zooeffect_selfURL()));
+	header('Location: http://www.zooeffect.com/service.aspx?id='.get_site_option('1pluginjquery_userid').'&type=galleries&ver='._zooeffect_plugin_ver().'&rdt='.urlencode(_zooeffect_selfURL()));
 	exit;
 }
 
@@ -267,11 +262,6 @@ function _zooeffect_mt_options_page() {
 		exit;
 	}
 
-	if (strpos($_SERVER['QUERY_STRING'], 'hide_note=premiumpress_notice'))
-	{
-		update_site_option('premiumpress_notice', _zooeffect_plugin_ver());
-	}
-
 	$pluginjquery_userid = get_site_option('1pluginjquery_userid');
 	$pluginjquery_permission_level = get_site_option('1pluginjquery_permission_level');
 	$pluginjquery_excerpt = get_site_option('1pluginjquery_excerpt');
@@ -435,27 +425,27 @@ function _zooeffect_mt_manage_page() {
 
 function _zooeffect_mt_toplevel_page() {
 
-    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='2000px'></iframe>";
+    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='1000px'></iframe>";
 }
 
 function _zooeffect_mt_sublevel_create() {
-    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=creategallery&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='2000px'></iframe>";
+    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=creategallery&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='1000px'></iframe>";
 }
 
 function _zooeffect_mt_sublevel_monitor() {
-    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='2000px'></iframe>";
+    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='1000px'></iframe>";
 }
 
 function _zooeffect_mt_sublevel_library() {
-    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='2000px'></iframe>";
+    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='1000px'></iframe>";
 }
 
 function _zooeffect_mt_sublevel_myaccount() {
-    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='2000px'></iframe>";
+    echo "<iframe src='http://www.zooeffect.com/service.aspx?id=".get_site_option('1pluginjquery_userid')."&type=galleries&ver="._zooeffect_plugin_ver()."&src=".urlencode(_zooeffect_selfURL())."' width='98%' height='1000px'></iframe>";
 }
 
 function _zooeffect_mt_sublevel_forum() {
-    echo "<iframe src='http://www.zooeffect.com/support.aspx' width='98%' height='2000px'></iframe>";
+    echo "<iframe src='http://www.zooeffect.com/support.aspx' width='98%' height='1000px'></iframe>";
 }
 
 
@@ -572,7 +562,7 @@ function _zooeffect_activation_notice()
 
 			<?php
 
-	if (get_site_option('zooeffect_installed') != 'true')
+	if (get_site_option('1pluginjquery_installed') != 'true')
 	{
 		update_site_option('1pluginjquery_installed', 'true');
 		echo "<img src='http://goo.gl/hXevd' width=0 height=0 />";
