@@ -4,13 +4,13 @@ Plugin Name: ZooEffect Plugin for Video player, Photo Gallery Slideshow jQuery a
 Plugin URI: http://www.zooeffect.com/
 Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: ZooEffect
-Version: 1.06
+Version: 1.07
 */
 
 
 function _zooeffect_plugin_ver()
 {
-	return 'wp1.06';
+	return 'wp1.07';
 }
 
 if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=zooeffect') && !strpos($_SERVER['REQUEST_URI'], '&wrt='))
@@ -58,7 +58,7 @@ function _zooeffect_addMediaButton($admin = true)
 	global $post_ID, $temp_ID;
 	$uploading_iframe_ID = (int) (0 == $post_ID ? $temp_ID : $post_ID);
 
-	$media_upload_iframe_src = get_option('siteurl').'/wp-admin/media-upload.php?post_id=$uploading_iframe_ID';
+	$media_upload_iframe_src = get_option('siteurl')."/wp-admin/media-upload.php?post_id=$uploading_iframe_ID";
 
 	$media_zooeffect_iframe_src = apply_filters('media_zooeffect_iframe_src', "$media_upload_iframe_src&amp;type=zooeffect&amp;tab=zooeffect");
 	$media_zooeffect_title = __('Add ZooEffect photo', 'wp-media-zooeffect');
