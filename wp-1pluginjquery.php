@@ -4,13 +4,13 @@ Plugin Name: ZooEffect Plugin for Video player, Photo Gallery Slideshow jQuery a
 Plugin URI: http://www.zooeffect.com/
 Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: ZooEffect
-Version: 1.07
+Version: 1.08
 */
 
 
 function _zooeffect_plugin_ver()
 {
-	return 'wp1.07';
+	return 'wp1.08';
 }
 
 if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=zooeffect') && !strpos($_SERVER['REQUEST_URI'], '&wrt='))
@@ -53,6 +53,27 @@ function _zooeffect_WpMedia_init() // constructor
 	//if(!function_exists('curl_init') && !ini_get('allow_url_fopen')) {}
 }
 
+function _zoo_media_menu($tabs) {
+    $newtab = array('zooeffect' => __('Insert ZooEffect Photo', 'zooeffect'));
+    return array_merge($tabs, $newtab);
+}
+add_filter('media_upload_tabs', '_zoo_media_menu');
+
+
+function media_zooeffect_process() {
+    media_upload_header();
+    ?>
+    <iframe src="http://zooeffect.com" width="100%" height="98%"></iframe>
+    <?php
+}
+function zooeffect_menu_handle() {
+    
+    return wp_iframe( 'media_zooeffect_process');
+}
+
+add_action('media_upload_zooeffect', 'zooeffect_menu_handle');
+
+
 function _zooeffect_addMediaButton($admin = true)
 {
 	global $post_ID, $temp_ID;
@@ -62,8 +83,9 @@ function _zooeffect_addMediaButton($admin = true)
 
 	$media_zooeffect_iframe_src = apply_filters('media_zooeffect_iframe_src', "$media_upload_iframe_src&amp;type=zooeffect&amp;tab=zooeffect");
 	$media_zooeffect_title = __('Add ZooEffect photo', 'wp-media-zooeffect');
-
-	echo "<a class=\"thickbox\" href=\"{$media_zooeffect_iframe_src}&amp;TB_iframe=true&amp;height=500&amp;width=640\" title=\"$media_zooeffect_title\"><img src=\""._zooeffect_pluginURI()."/1plugin-icon.gif\" alt=\"$media_zooeffect_title\" /></a>";
+if($bloginfo = substr(get_bloginfo('version'), 0, 3)>=3.5):
+	echo "<a onClick=\"ZooEffect_launch_popup()\" class=\"insert-media \" data-editor=\"content\" title=\"Add Media\"><img src=\""._zooeffect_pluginURI()."/1plugin-icon.gif\" alt=\"$media_zooeffect_title\" /></a>"; 
+else: echo "<a class=\"thickbox\" href=\"{$media_zooeffect_iframe_src}&amp;TB_iframe=true&amp;height=500&amp;width=640\" title=\"$media_zooeffect_title\"><img src=\""._zooeffect_pluginURI()."/1plugin-icon.gif\" alt=\"$media_zooeffect_title\" /></a>";endif;
 }
 
 function _zooeffect_modifyMediaTab($tabs)
@@ -236,11 +258,11 @@ function _zooeffect_mt_add_pages() {
 		// kill the first menu item that is usually the identical to the menu itself
 		add_submenu_page(__FILE__, '', '', $pluginjquery_permission_level, __FILE__);
 
-		add_submenu_page(__FILE__, 'Manage Galleries', 'Manage My Galleries', $pluginjquery_permission_level, 'sub-page', '_zooeffect_mt_sublevel_monitor');
-//		add_submenu_page(__FILE__, 'Media Library', 'Media Library', $pluginjquery_permission_level, 'sub-page1', '_zooeffect_mt_sublevel_library');
-		add_submenu_page(__FILE__, 'Create Gallery', 'Create Gallery', $pluginjquery_permission_level, 'sub-page2', '_zooeffect_mt_sublevel_create');
-//		add_submenu_page(__FILE__, 'My Account', 'My Account', $pluginjquery_permission_level, 'sub-page3', '_zooeffect_mt_sublevel_myaccount');
-		add_submenu_page(__FILE__, 'Support Forum', 'Support Forum', $pluginjquery_permission_level, 'sub-page4', '_zooeffect_mt_sublevel_forum');
+		add_submenu_page(__FILE__, 'Manage Galleries', 'Manage My Galleries', $pluginjquery_permission_level, 'zoo-sub-page', '_zooeffect_mt_sublevel_monitor');
+//		add_submenu_page(__FILE__, 'Media Library', 'Media Library', $pluginjquery_permission_level, 'zoo-sub-page1', '_zooeffect_mt_sublevel_library');
+		add_submenu_page(__FILE__, 'Create Gallery', 'Create Gallery', $pluginjquery_permission_level, 'zoo-sub-page2', '_zooeffect_mt_sublevel_create');
+//		add_submenu_page(__FILE__, 'My Account', 'My Account', $pluginjquery_permission_level, 'zoo-sub-page3', '_zooeffect_mt_sublevel_myaccount');
+		add_submenu_page(__FILE__, 'Support Forum', 'Support Forum', $pluginjquery_permission_level, 'zoo-sub-page4', '_zooeffect_mt_sublevel_forum');
 	}
 }
 
@@ -585,6 +607,33 @@ if (get_site_option('1pluginjquery_permission_level') == "")
 {
 	update_site_option('1pluginjquery_permission_level', 'edit_posts');
 }
+
+
+add_action( 'admin_footer-post-new.php', 'zooEffect_mediaDefault_script' );
+add_action( 'admin_footer-post.php', 'zooEffect_mediaDefault_script' );
+add_action( 'admin_footer-index.php', 'zooEffect_mediaDefault_script' );
+function zooEffect_mediaDefault_script()
+{
+	?>
+		<script type="text/javascript">
+			var zooEffect_popup_timer = null;
+			function zooEffect_launch_popup()
+			{
+				zooEffect_popup_timer = setInterval(zooEffect_check_popup, 200);
+			}
+
+			function zooEffect_check_popup()
+			{
+				if (jQuery(".media-menu-item:contains('ZooEffect')").length > 0)
+				{
+					jQuery(".media-menu-item:contains('ZooEffect')")[0].click();
+					clearInterval(zooEffect_popup_timer);
+				}
+			}
+
+		</script>
+	<?php
+} 
 
 
 ?>
