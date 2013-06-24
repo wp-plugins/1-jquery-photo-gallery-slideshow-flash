@@ -4,13 +4,13 @@ Plugin Name: ZooEffect Plugin for Video player, Photo Gallery Slideshow jQuery a
 Plugin URI: http://www.zooeffect.com/
 Description: Photo Gallery with slideshow function, video players, music and podcast, many templates (players) and powerfull admin to manage your media assets without any program skills. Delivery using state of the art CDN (Content Delivery Network) included.
 Author: ZooEffect
-Version: 1.08
+Version: 1.09
 */
 
 
 function _zooeffect_plugin_ver()
 {
-	return 'wp1.08';
+	return 'wp1.09';
 }
 
 if (strpos($_SERVER['REQUEST_URI'], 'media-upload.php') && strpos($_SERVER['REQUEST_URI'], '&type=zooeffect') && !strpos($_SERVER['REQUEST_URI'], '&wrt='))
@@ -84,7 +84,7 @@ function _zooeffect_addMediaButton($admin = true)
 	$media_zooeffect_iframe_src = apply_filters('media_zooeffect_iframe_src', "$media_upload_iframe_src&amp;type=zooeffect&amp;tab=zooeffect");
 	$media_zooeffect_title = __('Add ZooEffect photo', 'wp-media-zooeffect');
 if($bloginfo = substr(get_bloginfo('version'), 0, 3)>=3.5):
-	echo "<a onClick=\"ZooEffect_launch_popup()\" class=\"insert-media \" data-editor=\"content\" title=\"Add Media\"><img src=\""._zooeffect_pluginURI()."/1plugin-icon.gif\" alt=\"$media_zooeffect_title\" /></a>"; 
+	echo "<a onClick=\"zooEffect_launch_popup()\" class=\"insert-media \" data-editor=\"content\" title=\"Add Media\"><img src=\""._zooeffect_pluginURI()."/1plugin-icon.gif\" alt=\"$media_zooeffect_title\" /></a>"; 
 else: echo "<a class=\"thickbox\" href=\"{$media_zooeffect_iframe_src}&amp;TB_iframe=true&amp;height=500&amp;width=640\" title=\"$media_zooeffect_title\"><img src=\""._zooeffect_pluginURI()."/1plugin-icon.gif\" alt=\"$media_zooeffect_title\" /></a>";endif;
 }
 
@@ -122,7 +122,7 @@ function _zooeffect_media_upload_type()
 			top.send_to_editor(unescape(location.href.substring(i+5)));
 		}
 
-		top.tb_remove();
+		//top.tb_remove();
 	}
 
 	window.onload = _zooeffect_stub;
@@ -276,14 +276,15 @@ function _zooeffect_mt_options_page() {
 //	if( is_site_admin() == false ) {
 //		wp_die( __('You do not have permission to access this page.') );
 //	}
-
+	
+	/*
 	if (strpos($_SERVER['QUERY_STRING'], 'hide_note=welcome_notice'))
 	{
 		update_site_option('zooeffect_welcome_notice', _zooeffect_plugin_ver());
-		echo "<script type=\"text/javascript\">	document.location.href = '".$_SERVER['HTTP_REFERER']."'; </script>";
-		exit;
+		echo '<script type="text/javascript">jQuery(function() {jQuery("#message").hide();});</script>';
 	}
-
+	*/
+	
 	$pluginjquery_userid = get_site_option('1pluginjquery_userid');
 	$pluginjquery_permission_level = get_site_option('1pluginjquery_permission_level');
 	$pluginjquery_excerpt = get_site_option('1pluginjquery_excerpt');
@@ -561,8 +562,8 @@ if ($pluginjquery_excerpt_rt == 'full' || $pluginjquery_excerpt_rt == 'clean')
 	add_filter('get_the_excerpt', '_zooeffect_improved_trim_excerpt');
 }
 
-function _zooeffect_activation_notice()
-			{ ?>
+function _zooeffect_activation_notice() { 
+	?>
 			<div id="message" class="updated fade">
 				<p style="line-height: 150%">
 					<strong>Welcome to ZooEffect (1PluginjQuery) Rich Media Plugin</strong> - The best way to manage and display photo galleries and slideshows on your site.
@@ -572,15 +573,31 @@ function _zooeffect_activation_notice()
 				</p>
 				<p>
 		
-<input type="button" class="button" value="ZooEffect Options Page" onclick="document.location.href = 'options-general.php?page=zooeffectoptions';" />
-
-<input type="button" class="button" value="Hide this message" onclick="document.location.href = 'options-general.php?page=zooeffectoptions&amp;hide_note=welcome_notice';" />
+				<input type="button" class="button" value="ZooEffect Options Page" 
+					onclick="document.location.href = 'options-general.php?page=zooeffectoptions';" />
+				<input type="button" id="zoo_welcome_hide" class="button" value="Hide this message" />
 
 
 				</p>
 
 			</div>
+			
+			<script type="text/javascript">
+				function zoo_hide_welcome_message() {
 
+		            jQuery.post(ajaxurl, { action: 'zoo_hide_welcome' }, 
+				            function(response) {
+		            			jQuery('#message').fadeOut();			            
+		            		}
+		            );
+		            
+		            return false;
+				}
+				
+				jQuery(function () {
+					jQuery('#zoo_welcome_hide').click(zoo_hide_welcome_message);	
+				});
+			</script>
 
 			<?php
 
@@ -591,7 +608,11 @@ function _zooeffect_activation_notice()
 	}
 }
 
+add_action('wp_ajax_zoo_hide_welcome', 'zoo_hide_welcome_callback');
 
+function zoo_hide_welcome_callback() {
+	update_site_option('zooeffect_welcome_notice', _zooeffect_plugin_ver());
+}
 
 if (get_site_option('zooeffect_welcome_notice') != _zooeffect_plugin_ver())
 	add_action( 'admin_notices', '_zooeffect_activation_notice' );
@@ -628,6 +649,7 @@ function zooEffect_mediaDefault_script()
 				{
 					jQuery(".media-menu-item:contains('ZooEffect')")[0].click();
 					clearInterval(zooEffect_popup_timer);
+					zooEffect_popup_timer = null;
 				}
 			}
 
